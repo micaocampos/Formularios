@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 
-
 const UserForm = (props) => {
     const [firstname, setfirstname] = useState("");
     const [lastname, setlastname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmpassword, setconfirmPassword] = useState("");
+    const [hasBeenSubmitted, setHasBeenSubmitted] = useState(false);
+
     const createUser = (e) => {
         e.preventDefault();
         const newUser = { firstname, lastname, email, password, confirmpassword };
         console.log("Welcome", newUser);
+        setHasBeenSubmitted(true);
         setfirstname("");
         setlastname("");
         setEmail("");
@@ -20,9 +22,14 @@ const UserForm = (props) => {
 
     return (
         <form onSubmit={createUser}>
+            {
+                hasBeenSubmitted ?
+                    <h3>Thank you for submitting the form!</h3> :
+                    <h3>Welcome, please submit the form.</h3>
+            }
             <div>
                 <label>firstname: </label>
-                <input type="text" onChange={(e) => setfirstname(e.target.value)} value={firstname} />  
+                <input type="text" onChange={(e) => setfirstname(e.target.value)} value={firstname} />
             </div>
             <div>
                 <label>lasttname: </label>
